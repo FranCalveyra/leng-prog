@@ -15,12 +15,11 @@ add a b = (num,den)
 -- Implement the `sub` Function
 
 sub :: Fraction -> Fraction -> Fraction
-sub a b = (num,den)
+sub a b = add a negB
           where
-            (n1, d1) = a
             (n2, d2) = b
-            num = n1*d2 - n2*d1
-            den = d1*d2
+              negB = (-1*n2, d2)
+
 
 -- Implement the `mul` Function
 
