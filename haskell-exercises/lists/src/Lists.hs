@@ -1,7 +1,7 @@
 module Lists (member, union, intersection, difference,
               insert, insertionSort, firsts,
               binaryToDecimal, toDecimal, toDec, decimal, firsts,
-              binaryAdd) where
+              binaryAdd, merge, mergesort) where
   
 import Data.Char(digitToInt)  
 
@@ -71,3 +71,25 @@ firsts list = [take i list | i <- [1..length list] ]
 binaryAdd::String -> String -> String
 binaryAdd  = error "Implement it"
 -- It's optional, so I ain't gonna do it :)
+
+
+merge:: (Ord a) => [a] -> [a] -> [a]
+merge [] l2 = l2
+merge l1 [] = l1
+merge (x:xs) (y:ys)
+  | x <= y = x: merge xs (y:ys)
+  | otherwise = y: merge (x:xs) ys
+
+mergesort:: (Ord a) => [a] -> [a]
+mergesort [] = []
+mergesort [x] = [x]
+mergesort list = merge (mergesort firstHalf) (mergesort secondHalf)
+  where
+    (firstHalf, secondHalf) = splitAt mid list
+    mid = (length list ) `div` 2
+
+--sort:: (Ord a) => [a] -> Int -> Int -> [a]
+--sort [] _ _ _= []
+--sort list low mid high
+--  |low >= high = list
+--  |otherwise =
