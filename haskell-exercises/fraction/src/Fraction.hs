@@ -18,7 +18,7 @@ sub :: Fraction -> Fraction -> Fraction
 sub a b = add a negB
           where
             (n2, d2) = b
-              negB = (-1*n2, d2)
+            negB = (-1*n2, d2)
 
 
 -- Implement the `mul` Function
@@ -48,6 +48,14 @@ hcf :: Int -> Int -> Int
 hcf a b
   | b == 0 = a
   | otherwise = hcf b (a `mod` b)
+
+--simplify :: Fraction -> Fraction
+--simplify x = (a,b)
+--    where
+--      (n,d) = x
+--      divisor = hcf n d
+--      a = div n divisor
+--      b = div d divisor
 
 
     
