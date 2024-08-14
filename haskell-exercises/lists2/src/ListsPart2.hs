@@ -14,11 +14,15 @@ charToBits ' ' = []
 charToBits char = [bitAt i char | i <- [0..7]]
 
 
-bits::String -> Bits
+--bits::String -> Bits
+--bits "" = []
+--bits string = concat result
+--    where
+--      result = [charToBits (string !! i) | i <- [0..length string - 1]]
+
+bits:: String-> Bits
 bits "" = []
-bits string = concat result
-    where
-      result = [charToBits (string !! i) | i <- [0..length string - 1]]
+bits string = foldr (++) [] (map charToBits string)
 
 type Solution = [Int]
 
