@@ -7,7 +7,6 @@ data Trie a = Leaf a | (Trie a) :-: (Trie a) | Nil deriving (Show, Eq)
 -- Add the Type definition deriving (Eq, Show)
 
 
---Should it be Trie a or Trie Char??? IDK
             
 left::Trie a -> Trie a
 left Nil = error "Exception: Left of Nil"
@@ -18,19 +17,29 @@ right Nil = error "Exception: Right of Nil"
 right (_ :-: r) = r
 
 find::Bits -> Trie a -> a
-find [] _ = error "Trying to find nothing"
-find _ Nil = error "Trying to find something on a null trie"
-find bits trie = recFind 0 bits trie
+find bits trie = value
   where
-     recFind _ _ (Leaf x) = x
-     recFind index b t = if b!!index == F then recFind (index + 1) b (left t) else recFind (index + 1) b (right t)
+    (value, _) = subFind bits trie
 
 decode::Bits -> Trie Char -> String
 decode [] _ = ""
-decode _ Nil = error "Trying to decode a null trie"
-decode bits trie = [find (take i bits) root | i<-[0..]]
+decode bits trie = char : (decode bitsLeft trie)
   where
-     root = trie
+    (char, bitsLeft) = subFind bits trie
 
 toList::Trie a -> [(a, Bits)]
-toList = error "Define it"
+toList Nil = error "Making Nil a List is impossible"
+toList (Leaf x) = [(x, [])]
+toList trie = [getRecList (left trie) [F]] ++ [getRecList (right trie) [T]]
+where
+   getRecList (Leaf a) list = [(a, list)]
+   getRecList trie list =
+
+--contains::Bits -> Trie a -> Bool
+--contains [] _ = False
+--contains bits trie = (subFind bits trie) /= Nothing
+
+subFind::Bits -> Trie a -> (a, Bits)
+subFind list (Leaf a) = (a, list)
+subFind [] _ = error "No key"
+subFind (b:bs) trie = if(b == F) then subFind bs (left trie) else subFind bs (right trie)
