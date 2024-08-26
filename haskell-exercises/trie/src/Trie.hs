@@ -30,10 +30,15 @@ decode bits trie = char : (decode bitsLeft trie)
 toList::Trie a -> [(a, Bits)]
 toList Nil = error "Making Nil a List is impossible"
 toList (Leaf x) = [(x, [])]
-toList trie = [getRecList (left trie) [F]] ++ [getRecList (right trie) [T]]
-where
-   getRecList (Leaf a) list = [(a, list)]
-   getRecList trie list =
+toList trie = _toList trie []
+
+_toList :: Trie a -> Bits -> [(a, Bits)]
+_toList (Leaf x) bits = [(x, bits)]
+_toList Nil _ = []
+_toList (l :-: r) list = leftList ++ rightList
+  where
+    leftList = _toList l (list++[F])
+    rightList = _toList r (list++[T])
 
 --contains::Bits -> Trie a -> Bool
 --contains [] _ = False
