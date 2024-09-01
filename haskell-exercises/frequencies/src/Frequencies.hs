@@ -8,7 +8,7 @@ type Frequency = (Int, Char)
 
 frequencies::String -> [Frequency]
 frequencies "" = []
-frequencies string = mergesort (map swap (mergesort (getFrequencies string)))
+frequencies string = mergesort (map swap (getFrequencies string))
 
 frequencyMap::(Ord a) => [a] -> Map a Int
 frequencyMap list = Map.fromList (mergesort ((getFrequencies list))) --I want to sort on O(n*log(n))
