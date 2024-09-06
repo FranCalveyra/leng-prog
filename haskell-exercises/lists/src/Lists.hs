@@ -3,7 +3,7 @@ module Lists (member, union, intersection, difference,
               binaryToDecimal, toDecimal, toDec, decimal, firsts,
               binaryAdd, merge, mergesort) where
   
-import Data.Char(digitToInt)  
+import Data.Char(digitToInt)
 
 member:: Int -> [Int] -> Bool
 member _ []      = False
