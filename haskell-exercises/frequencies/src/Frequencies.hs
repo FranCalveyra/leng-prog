@@ -1,8 +1,10 @@
-module Frequencies  (Frequency, frequencyMap, frequencies, insert, insertionSort, encode, encode2, Student(..), Element(..), averageScores, student) where
+module Frequencies  (Frequency, frequencyMap, frequencies, insert, insertionSort,
+ encode, encode2, Student(..), Element(..), averageScores, student, scoreAsString, printAverages) where
 
 import Data.Map(Map)
 import qualified Data.Map as Map
 import Data.Tuple(swap)
+import Data.Maybe(fromJust, isJust, isNothing)
 
 type Frequency = (Int, Char)
 
@@ -76,3 +78,14 @@ averageScores list = Map.fromList (map calculateAverages (buildScoreMap list))
     buildScoreMap ((id, score):xs) = (id, scores id ((id, score):xs)) : buildScoreMap (filter ((/= id) . fst) xs)
     scores id ys = map snd (filter ((== id) . fst) ys)
 
+scoreAsString::Int -> Map Int Double -> String
+scoreAsString id map = toString $ Map.lookup id map
+  where
+    toString Nothing = "No Show"
+    toString (Just x) = show x
+
+
+printAverages::[Student] -> Map Int Double -> IO ()
+printAverages (x:xs) scores = do
+  putStrLn (name x ++ " " ++ (scoreAsString (idNumber x) scores))
+  printAverages xs scores

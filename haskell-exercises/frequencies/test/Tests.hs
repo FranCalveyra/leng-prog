@@ -1,5 +1,5 @@
-import Test.Hspec    (describe, hspec, it, shouldBe)
-import Frequencies (frequencyMap, insertionSort, insert, frequencies, encode, encode2, Student(..), Element(..), averageScores, student)
+import Test.Hspec (describe, hspec, it, shouldBe)
+import Frequencies (frequencyMap, insertionSort, insert, frequencies, encode, encode2, Student(..), Element(..), averageScores, student, scoreAsString, printAverages)
 import qualified Data.Map as M
 
 main :: IO ()
@@ -8,37 +8,37 @@ main = hspec $ do
     it "Int Frequencies" $ do
       frequencyMap [1, 20, 1, 7, 20, 1] `shouldBe` M.fromList [(1, 3), (20, 2), (7, 1)]
     it "Words Frequency" $ do
-      frequencyMap (words "Hello pal, Hello") `shouldBe` M.fromList [("Hello",2),("pal,",1)]
+      frequencyMap (words "Hello pal, Hello") `shouldBe` M.fromList [("Hello", 2), ("pal,", 1)]
     it "Char Frequencies" $ do
-      frequencyMap "PAPAYA" `shouldBe` M.fromList [('A',3),('P',2),('Y',1)]
+      frequencyMap "PAPAYA" `shouldBe` M.fromList [('A', 3), ('P', 2), ('Y', 1)]
 
   describe "insertionSort" $ do
     it "Sort Integers" $ do
       insertionSort [10, 3, 1, 2] `shouldBe` [1, 2, 3, 10]
     it "Sort Tuples" $ do
-      insertionSort [(10, 'C'), (10, 'A'), (1, 'B')] `shouldBe` [(1,'B'),(10,'A'),(10,'C')]
+      insertionSort [(10, 'C'), (10, 'A'), (1, 'B')] `shouldBe` [(1, 'B'), (10, 'A'), (10, 'C')]
 
   describe "insert" $ do
     it "insert an Int" $ do
-      insert 5 [1, 3..10] `shouldBe` [1,3,5,5,7,9]
+      insert 5 [1, 3..10] `shouldBe` [1, 3, 5, 5, 7, 9]
 
   describe "frequencies" $ do
     it "empty list" $ do
       frequencies "" `shouldBe` []
     it "PAPAYA" $ do
-      frequencies "PAPAYA" `shouldBe` [(1,'Y'),(2,'P'),(3,'A')]
+      frequencies "PAPAYA" `shouldBe` [(1, 'Y'), (2, 'P'), (3, 'A')]
     it "Zapallo con Papa" $ do
-      frequencies "Zapallo con Papa" `shouldBe` [(1,'P'),(1,'Z'),(1,'c'),(1,'n'),(2,' '),(2,'l'),(2,'o'),(2,'p'),(4,'a')]
+      frequencies "Zapallo con Papa" `shouldBe` [(1, 'P'), (1, 'Z'), (1, 'c'), (1, 'n'), (2, ' '), (2, 'l'), (2, 'o'), (2, 'p'), (4, 'a')]
 
   describe "encode" $ do
     it "encode 1" $ do
-      encode "aaaabccaadeeee" `shouldBe` [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
+      encode "aaaabccaadeeee" `shouldBe` [(4, 'a'), (1, 'b'), (2, 'c'), (2, 'a'), (1, 'd'), (4, 'e')]
     it "encode empty" $ do
       encode "" `shouldBe` []
     it "encode 2" $ do
-      encode "aaabbb" `shouldBe` [(3,'a'),(3,'b')]
+      encode "aaabbb" `shouldBe` [(3, 'a'), (3, 'b')]
     it "encode 3" $ do
-      encode "aaabbbcc" `shouldBe` [(3,'a'),(3,'b'),(2,'c')]
+      encode "aaabbbcc" `shouldBe` [(3, 'a'), (3, 'b'), (2, 'c')]
 
   describe "encode2" $ do
     it "encode 1" $ do
@@ -75,3 +75,21 @@ main = hspec $ do
       averageScores [(1, 10), (2, 20), (3, 30), (4, 40), (1, 50), (2, 60)] `shouldBe` M.fromList [(1, 30.0), (2, 40.0), (3, 30.0), (4, 40.0)]
     it "average scores 7" $ do
       averageScores [(1, 10), (2, 20), (3, 30), (4, 40), (1, 50), (2, 60), (3, 70)] `shouldBe` M.fromList [(1, 30.0), (2, 40.0), (3, 50.0), (4, 40.0)]
+
+  describe "scoreAsString" $ do
+    let map = M.fromList [(1, 10.0), (2, 20.0), (3, 30.0), (4, 40.0)]
+    it "score as string" $ do
+      scoreAsString 1 map `shouldBe` "10.0"
+    it "score as string 2" $ do
+      scoreAsString 2 map `shouldBe` "20.0"
+    it "score as string 3" $ do
+      scoreAsString 3 map `shouldBe` "30.0"
+    it "score as string 4" $ do
+      scoreAsString 4 map `shouldBe` "40.0"
+
+-- It's hard to test IO
+--  describe "printAverages" $ do
+--    it "print averages" $ do
+--      let students = [student 1 "John", student 2 "Jane"]
+--      let scores = M.fromList [(1, 10), (2, 20)]
+--      printAverages students scores `shouldBe` return ("John 10.0\nJane 20.0\n")
