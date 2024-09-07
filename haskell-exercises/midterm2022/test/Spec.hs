@@ -1,5 +1,5 @@
 import Test.Hspec (describe, hspec, it, shouldBe)
-import MidTermHaskell2022 (encode, encode2, Student(..), Element(..), averageScores, student, scoreAsString, printAverages)
+import MidTerm2022 (encode, encode2, Student(..), Element(..), averageScores, student, scoreAsString, printAverages)
 import qualified Data.Map as M
 
 main :: IO ()
@@ -60,10 +60,3 @@ main = hspec $ do
       scoreAsString 3 map `shouldBe` "30.0"
     it "score as string 4" $ do
       scoreAsString 4 map `shouldBe` "40.0"
-
--- It's hard to test IO
---  describe "printAverages" $ do
---    it "print averages" $ do
---      let students = [student 1 "John", student 2 "Jane"]
---      let scores = M.fromList [(1, 10), (2, 20)]
---      printAverages students scores `shouldBe` return ("John 10.0\nJane 20.0\n")

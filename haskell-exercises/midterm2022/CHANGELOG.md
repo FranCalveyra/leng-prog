@@ -1,4 +1,4 @@
-# Changelog for `midtermhaskell`
+# Changelog for `midterm2022`
 
 All notable changes to this project will be documented in this file.
 

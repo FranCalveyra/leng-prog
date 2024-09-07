@@ -1,6 +1,6 @@
-name:                midtermhaskell
+name:                midterm2023
 version:             0.1.0.0
-github:              "githubuser/midtermhaskell"
+github:              "githubuser/midterm2023"
 license:             BSD-3-Clause
 author:              "Author name here"
 maintainer:          "example@example.com"
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/midtermhaskell#readme>
+description:         Please see the README on GitHub at <https://github.com/githubuser/midterm2023#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -37,7 +37,7 @@ library:
   source-dirs: src
 
 executables:
-  midtermhaskell-exe:
+  midterm2023-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -45,15 +45,16 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - midtermhaskell
+    - midterm2023
 
 tests:
-  midtermhaskell-test:
-    main:                Tests.hs
+  midterm2023-test:
+    main:                Spec.hs
     source-dirs:         test
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - midtermhaskell
+    - midterm2023
+    - hspec
