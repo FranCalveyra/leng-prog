@@ -2,10 +2,11 @@ module MidTerm2023 where
 
 -- Punto 1
 binaryProduct::String -> String -> String
-binaryProduct "" _ = error "No number provided"
-binaryProduct _ "" = error "No number provided"
-binaryProduct x "1" = x
---binaryProduct a b = binaryProduct (binaryAdd a a) (binarySubtraction b "1")
+binaryProduct _ "0" = "0"
+binaryProduct a "1" = a
+binaryProduct a b
+  | last b == '0' = binaryProduct (a ++ "0") (init b)
+  | otherwise = binaryAdd a (binaryProduct (a ++ "0") (init b))
 
 --Aux
 binaryAdd :: String -> String -> String

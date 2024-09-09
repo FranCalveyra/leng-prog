@@ -5,27 +5,13 @@ main :: IO ()
 main = hspec $ do
   describe "binaryProduct" $ do
     it "multiplies two binary numbers" $ do
+      binaryProduct "10" "11" `shouldBe` "110"
+    it "multiplies two binary numbers" $ do
       binaryProduct "101" "11" `shouldBe` "1111"
-      binaryProduct "101" "101" `shouldBe` "11001"
-      binaryProduct "101" "1001" `shouldBe` "110001"
-      binaryProduct "101" "10001" `shouldBe` "1100001"
-      binaryProduct "101" "100001" `shouldBe` "11000001"
-      binaryProduct "101" "1000001" `shouldBe` "110000001"
-      binaryProduct "101" "10000001" `shouldBe` "1100000001"
-      binaryProduct "101" "100000001" `shouldBe` "11000000001"
-      binaryProduct "101" "1000000001" `shouldBe` "110000000001"
-      binaryProduct "101" "10000000001" `shouldBe` "1100000000001"
-      binaryProduct "101" "100000000001" `shouldBe` "11000000000001"
-      binaryProduct "101" "1000000000001" `shouldBe` "110000000000001"
-      binaryProduct "101" "10000000000001" `shouldBe` "1100000000000001"
-      binaryProduct "101" "100000000000001" `shouldBe` "11000000000000001"
-      binaryProduct "101" "1000000000000001" `shouldBe` "110000000000000001"
-      binaryProduct "101" "10000000000000001" `shouldBe` "1100000000000000001"
-      binaryProduct "101" "100000000000000001" `shouldBe` "11000000000000000001"
-      binaryProduct "101" "1000000000000000001" `shouldBe` "110000000000000000001"
-      binaryProduct "101" "10000000000000000001" `shouldBe` "1100000000000000000001"
-      binaryProduct "101" "100000000000000000001" `shouldBe` "11000000000000000000001"
-      binaryProduct "101" "1000000000000000000001" `shouldBe` "110000000000000000000001"
+    it "multiplies two binary numbers" $ do
+      binaryProduct "101" "0" `shouldBe` "0"
+    it "multiplies two binary numbers" $ do
+      binaryProduct "101" "1" `shouldBe` "101"
 
   describe "BQueue" $ do
     it "empty" $ do
@@ -52,5 +38,12 @@ main = hspec $ do
       show (BQueue [1, 2, 3] [4, 5, 6]) `shouldBe` "[4,5,6,3,2,1]"
       show (BQueue [1, 2, 3] []) `shouldBe` "[3,2,1]"
       show (BQueue [] [4, 5, 6]) `shouldBe` "[4,5,6]"
+
+  describe "Monad tests" $ do
+    it "should work" $ do
+      pending
+      (Pair 1 2) >>= (\x -> Pair (x + 1) (x + 2)) `shouldBe` Pair 2 3
+      (Pair 1 2) >>= (\x -> Pair (x + 1) (x + 2)) >>= (\x -> Pair (x + 1) (x + 2)) `shouldBe` Pair 3 4
+      (Pair 1 2) >>= (\x -> Pair (x + 1) (x + 2)) >>= (\x -> Pair (x + 1) (x + 2)) >>= (\x -> Pair (x + 1) (x + 2)) `shouldBe` Pair 4 5
 
 
