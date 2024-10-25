@@ -26,8 +26,6 @@ impl<T:Clone> CircularBuffer<T> {
         let elem = self.buffer[self.read].clone();
         self.buffer[self.read] = None;
         self.read = self.alter_next_index(self.read);
-        println!("Current value of read index: {}", self.read);
-
 
         self.size -=1; 
         Ok(elem.as_ref().unwrap().clone())
@@ -38,7 +36,6 @@ impl<T:Clone> CircularBuffer<T> {
         if self.is_full() {return Err(Error::FullBuffer);}
         self.buffer[self.next] = Some(byte);
         self.next = self.alter_next_index(self.next);
-        println!("Current write index value: {}", self.next);
         self.size +=1;
         Ok(())
     }

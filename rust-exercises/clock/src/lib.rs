@@ -23,7 +23,7 @@ impl Clock {
         let hours = mins / 60;
         let res_mins = mins % 60;
         
-        Self { hours: hours, minutes: res_mins } 
+        Self { hours, minutes: res_mins }
     }
 }
 

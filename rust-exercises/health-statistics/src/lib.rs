@@ -5,7 +5,7 @@ pub struct User {
 }
 
 impl User {
-    pub fn new(name: &str, age: u32, weight: f32) -> Self { Self{name : (*name).to_string(), age : age, weight: weight} }
+    pub fn new(name: &str, age: u32, weight: f32) -> Self { Self{name : (*name).to_string(), age, weight } }
 
     pub fn name(&self) -> &str { &(self.name) }
 

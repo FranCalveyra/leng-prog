@@ -9,13 +9,13 @@ pub struct Queen {
 impl ChessPosition {
     pub fn new(rank: i32, file: i32) -> Option<Self> {
         if rank < 0 || file < 0 || rank >=8 || file >=8 {return None};
-        return Some(ChessPosition(rank, file));
+        Some(ChessPosition(rank, file))
     }
 }
 
 impl Queen {
     pub fn new(position: ChessPosition) -> Self {
-        Queen {position: position}
+        Queen {position}
     }
 
     pub fn can_attack(&self, other: &Queen) -> bool {
@@ -25,6 +25,6 @@ impl Queen {
     let delta_col = (self.position.1 - other.position.1).abs();
     let delta_row = (self.position.0 - other.position.0).abs();
 
-    return same_row || same_col || delta_col == delta_row;
+        same_row || same_col || delta_col == delta_row
     }   
 }
