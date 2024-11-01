@@ -1,19 +1,14 @@
-use std::env;
-use example::oblique_shot;
-
+use std::mem;
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let argc = args.len();
-    if argc == 3 && args[1] == "hello" {
-        println!("Hello {}!", args[2]);
-    } else if argc == 4 && args[1] == "oblique_shot" {
-        let (range, time) = oblique_shot(args[2].parse().unwrap(),
-                                                  args[3].parse().unwrap());
-        println!("Range: {:.2}m, Time: {:.2}s", range, time);
-    } else {
-        usage();
-    }
+    let num: u32 = 65;
+
+    // Unsafe conversion of a u32 to a char
+    let character: char = unsafe { mem::transmute(num) };
+
+    println!("Character: {}", character);
 }
+// // Output
+// Character: A
 
 // Print usage in case of errors
 //
