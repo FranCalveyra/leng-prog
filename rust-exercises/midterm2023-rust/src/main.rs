@@ -24,11 +24,12 @@ impl Canvas {
     }
 
     pub fn shift_all(&mut self, shift_x: f64, shift_y:f64) -> bool{
-        self.shapes = self.shapes.iter().map(|(&p,s)| { &p.0 + shift_x;
-            &p.1 + shift_y;
-        }).collect();
+        let new_shapes =  self.shapes.iter().map(|(mut p,s)| {
+            *p.0 += shift_x; *p.1 += shift_y; }).collect();
 
-        !self.shapes.keys().any(|p| self.is_outside_canvas(&p))
+        if self.shapes.keys().any(|p| self.is_outside_canvas(&p)) {return false}
+        self.shapes = new_shapes;
+        true
     }
 
     fn is_outside_canvas(&self, point: &Point) -> bool{
